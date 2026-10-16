@@ -110,7 +110,7 @@ export function DressShowcase() {
 
       {/* Desktop: pinned 4-look cross-swap */}
       <div ref={stage} className="hidden h-screen md:motion-safe:block">
-        <div className="mx-auto grid h-full max-w-[1500px] grid-cols-12 items-center gap-10 px-10 pt-20 lg:px-16">
+        <div className="mx-auto grid h-full max-w-[1500px] grid-cols-12 items-center gap-10 px-10 pt-0 lg:px-16">
           <div className="col-span-7 flex h-full items-center justify-center" style={{ perspective: 1400 }}>
             <div className="relative aspect-[3/4] h-[74vh] max-h-[780px]">
               {LOOKS.map((p, i) => (
