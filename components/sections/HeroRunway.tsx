@@ -17,9 +17,11 @@ import { gsap, useGSAP, MOTION_OK } from '@/lib/gsap';
  */
 
 const FRAMES = 240;
+// Prefixed by hand: basePath (set for GitHub Pages) isn't applied to plain <img>/canvas URLs.
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 const SETS = {
-  desktop: '/hero-runway/desktop/frame_####.webp',
-  mobile: '/hero-runway/mobile/frame_####.webp',
+  desktop: `${BASE}/hero-runway/desktop/frame_####.webp`,
+  mobile: `${BASE}/hero-runway/mobile/frame_####.webp`,
 } as const;
 type SetName = keyof typeof SETS;
 
