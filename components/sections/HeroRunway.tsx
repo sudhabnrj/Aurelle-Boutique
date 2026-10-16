@@ -207,7 +207,8 @@ export function HeroRunway() {
         };
 
         tl.to(playhead, { frame: FRAMES - 1, duration: SCRUB, onUpdate: render }, 0)
-          .to('[data-hr-intro]', { opacity: 0, y: -50, filter: 'blur(8px)', duration: 0.07 }, 0.03)
+          // The title and its buttons leave together (autoAlpha, so hidden buttons can't be clicked) and return on scroll-up.
+          .to('[data-hr-intro]', { autoAlpha: 0, y: -50, filter: 'blur(8px)', duration: 0.07 }, 0.03)
           .to('[data-hr-cue]', { opacity: 0, duration: 0.03 }, 0)
           .fromTo('[data-hr-progress]', { scaleY: 0 }, { scaleY: 1, duration: SCRUB }, 0);
 
@@ -224,9 +225,8 @@ export function HeroRunway() {
           }
         });
 
-        // Finale: the call to action lands once the last walk is under way.
-        tl.fromTo('[data-hr-outro] a',{ autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.06, stagger: 0.02, ease: 'power3.out' }, at(205))
-          .to({}, { duration: 1 - SCRUB }, SCRUB);
+        // Hold the last frame before the pin releases.
+        tl.to({}, { duration: 1 - SCRUB }, SCRUB);
       });
 
       return () => mm.revert();
@@ -284,6 +284,14 @@ export function HeroRunway() {
             <p data-hr-fade className="mt-6 max-w-sm text-[15px] leading-relaxed text-ivory/80">
               Four handwoven sarees, one walk. Scroll to watch the silk change on the runway.
             </p>
+            <div data-hr-fade className="mt-8 flex flex-wrap gap-3 md:gap-4">
+              <a href="#new-in" onClick={(e) => (e.preventDefault(), scrollTo('#new-in'))} className="pill-gold">
+                Shop the Saree Edit <ArrowRight size={14} strokeWidth={1.6} />
+              </a>
+              <a href="#showcase" onClick={(e) => (e.preventDefault(), scrollTo('#showcase'))} className="pill-ghost text-ivory">
+                Book a Bridal Fitting
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -316,26 +324,6 @@ export function HeroRunway() {
               </span>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Finale */}
-      <div data-hr-outro className="absolute inset-x-0 bottom-[5vh] z-10 md:bottom-[12vh]">
-        <div className="mx-auto flex w-full max-w-[1600px] flex-wrap items-center gap-4 px-6 md:px-16">
-          <a
-            href="#new-in"
-            onClick={(e) => (e.preventDefault(), scrollTo('#new-in'))}
-            className="pill-gold invisible opacity-0"
-          >
-            Shop the Saree Edit <ArrowRight size={14} strokeWidth={1.6} />
-          </a>
-          <a
-            href="#showcase"
-            onClick={(e) => (e.preventDefault(), scrollTo('#showcase'))}
-            className="pill-ghost invisible text-ivory opacity-0 max-md:hidden"
-          >
-            Book a Bridal Fitting
-          </a>
         </div>
       </div>
 
