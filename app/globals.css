@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ivory: #faf7f2;
+  --blush: #f3e6e0;
+  --espresso: #1c1512;
+  --gold: #c9a24b;
+  --accent: #f1dad5;
+}
+
+html {
+  background: var(--ivory);
+  color: var(--espresso);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--ivory);
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ivory);
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  .overline {
+    @apply font-sans text-[11px] font-medium uppercase tracking-[0.3em];
+  }
+  .hairline {
+    @apply h-px w-full bg-gold/50;
+  }
+  .pill {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-sans text-[12px] font-medium uppercase tracking-[0.2em] transition-all duration-500 ease-silk focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold;
+  }
+  .pill-gold {
+    @apply pill bg-gold text-espresso hover:bg-espresso hover:text-ivory;
+  }
+  .pill-dark {
+    @apply pill bg-espresso text-ivory hover:bg-gold hover:text-espresso;
+  }
+  .pill-ghost {
+    @apply pill border border-current hover:bg-ivory hover:text-espresso;
+  }
+  .masked-line {
+    @apply block overflow-hidden pb-[0.12em] -mb-[0.12em];
+  }
+}
+
+/* Animated film grain for the cinematic hero. */
+.film-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: film-grain 0.9s steps(6) infinite;
+}
+@keyframes film-grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-6%, 4%); }
+  40% { transform: translate(5%, -7%); }
+  60% { transform: translate(-3%, 8%); }
+  80% { transform: translate(7%, 2%); }
+  100% { transform: translate(-4%, -5%); }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
